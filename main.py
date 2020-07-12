@@ -1,67 +1,61 @@
-# # With this program, you can calculate the profit
-# # or loss incurred for several transactions done by you
+# With this program, you can calculate the profit
+# or loss incurred for several transactions done by you
 
-# # Ask for user input
-# print("What should we call you?")
-# nameinput = input()
-# print("Welcome,", nameinput)
+# Ask for user input
+print("What should we call you?")
+nameinput = input()
+print("Welcome,", nameinput)
 
-# # Ask to specify the purpose of this budget
-# print("Give this budget a title. E.g. Kitchen repairs, monthly expenses")
-# projtitleinput = input()
-# print("You have named this budget as " + projtitleinput)
+# Ask to specify the purpose of this budget
+print("Give this budget a title. E.g. Kitchen repairs, monthly expenses")
+projtitleinput = input()
+print("You have named this budget as " + projtitleinput)
 
-# # Ask for choice of currency
-# print("Type the code of currency of choice. E.g. for US dollar type USD")
-# currencyinput = input()
-# print("You have selected " + currencyinput + " as your currency")
+# Ask for choice of currency
+print("Type the code of currency of choice. E.g. for US dollar type USD")
+currencyinput = input()
+print("You have selected " + currencyinput + " as your currency")
 
-# # Ask for budget amount
-# print("Please enter the total budget amount")
-# budgetinput = input()
-# print("The budget amount you selected for this budget is " +
-#       budgetinput + " " + currencyinput)
+# Ask for budget amount
+print("Please enter the total budget amount")
+budgetinput = input()
+print("The budget amount you selected for this budget is " +
+      budgetinput + " " + currencyinput)
 
-# Input all incomes and expenses
-total_income, total_expense = 0.0,  0.0
-income, expense = 0.0, 0.0
+result = 0
+entry = 0
+i = 0
+# Take inputs of transactions from the user
+print("If you want to quit, press any letter")
+print("Specify the number of entries:")
+myinput = input()
+letter_input = myinput.isalpha()
 
-# Ask whether you want to enter all expenses, all incomes or quit the program
-print("Press I or i if you want to add an expense and press E or e if you want to add income.")
-print("If you want to finalise, press Q or q")
-myinput = str(input())
-
-
-# After you press E (Has problems out here)
-if myinput == 'E' or myinput == 'e':
-    while(True):
-        if income == 'n':
-            break
-        while(True):
-            if expense == 'n':
-                break
-            print("Input Expense entry. Input n to quit: ")
-            expense = input()
-            total_expense = total_expense + float(expense)
-            print("Total:", total_income)
-
-        print("Input Income entry. Input n to quit: ")
-        income = input()
-        total_income = total_income + float(income)
-        print("Total:", total_income)
-
-
-# elif myinput == 'Q' or myinput == 'q':
-#     exit
-# else:
-#     print("Invalid input")
-
+if letter_input == True:
+    exit
+else:
+    print("Enter positive values for incomes and negative values for expenses.")
+    for i in range(1, int(myinput) + 1):
+        print("Input your transaction number " + str(i) + ":")
+        entry = input()
+        result = result + round(int(entry))
+diff = 0
 # # Profit, Loss or Balanced budget?
-# if total_expense > total_income:
-#     loss = total_expense - total_income
-#     print("You have incurred a loss of:" + loss + " " + currencyinput)
-# elif total_income > total_expense:
-#     profit = total_income - total_expense
-#     print("You have incurred a profit of:" + profit + " " + currencyinput)
-# else:
-#     pass
+if result > 0:
+    print("You have incurred a profit of " + str(result) + " " + str(currencyinput))
+    if int(budgetinput) > result:
+        diff = int(budgetinput) - result
+        print("You have spent " + str(diff) + " " + currencyinput + " less than your estimate")
+    elif int(budgetinput) == result:
+        diff = 0
+        print("You have spent the same amount that you estimated")
+    else:
+        diff = result - int(budgetinput)
+        print("You have spent " + str(diff) + " " + currencyinput + " more than your estimate")
+
+elif result < 0:
+    print("You have incurred a loss of " + str(abs(result)) + " " + str(currencyinput))
+elif result == 0:
+    print("Your budget is balanced")
+else:
+    pass
