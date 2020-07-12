@@ -55,7 +55,5 @@ if result > 0:
 
 elif result < 0:
     print("You have incurred a loss of " + str(abs(result)) + " " + str(currencyinput))
-elif result == 0:
-    print("Your budget is balanced")
 else:
     pass
