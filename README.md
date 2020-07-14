@@ -3,4 +3,5 @@ An open source expense manager application for Windows specially made to promote
 
 ## Features
 Takes inputs from user about several transactions and outputs profit or loss incurred on the overall set of transactions.
-Also compares the result with budget estimate and returns the difference
+Also compares the result with budget estimate and returns the difference.
+Present the transactions in an Income/Expenses format on the terminal, with all the narrations.
