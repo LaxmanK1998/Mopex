@@ -52,7 +52,7 @@ print("\n")
 for i in range(1, int(myinput)+1):
     print(narrations[i-1])
 diff = 0
-result = income_total - expense_total # Calculate difference between total incomes and expenses
+result = income_total - abs(expense_total) # Calculate difference between total incomes and expenses
 print('\n')
 print("Income total: " + str(income_total))
 print("Expense total: " + str(abs(expense_total)))
