@@ -22,7 +22,7 @@ budgetinput = input()
 print("The budget amount you selected for this budget is " +
       budgetinput + " " + currencyinput)
 
-result = 0
+income_total, expense_total = 0, 0
 entry = 0
 i = 0
 # Take inputs of transactions from the user
@@ -30,6 +30,7 @@ print("If you want to quit, press any letter")
 print("Specify the number of entries:")
 myinput = input()
 letter_input = myinput.isalpha()
+narrations = {}
 
 if letter_input == True:
     exit
@@ -38,20 +39,36 @@ else:
     for i in range(1, int(myinput) + 1):
         print("Input your transaction number " + str(i) + ":")
         entry = input()
-        result = result + round(int(entry))
+        print("Enter the narration for transaction number " + str(i) + ":")
+        narrations[i - 1] = input()
+        if round(int(entry)) < 0:
+            expense_total = expense_total + round(int(entry))
+        else:
+            income_total = income_total + round(int(entry))
+
+print("\n")
+#Print all narrations
+#Start from here next and add dictionary keys to respective entries
+for i in range(1, int(myinput)+1):
+    print(narrations[i-1])
 diff = 0
-# # Profit, Loss or Balanced budget?
+result = income_total - expense_total # Calculate difference between total incomes and expenses
+print('\n')
+print("Income total: " + str(income_total))
+print("Expense total: " + str(abs(expense_total)))
+
+# Profit, Loss or Balanced budget?
 if result > 0:
     print("You have incurred a profit of " + str(result) + " " + str(currencyinput))
     if int(budgetinput) > result:
         diff = int(budgetinput) - result
-        print("You have spent " + str(diff) + " " + currencyinput + " less than your estimate")
+        print("You have spent " + str(diff) + " " + currencyinput + " less than your budget estimate. You saved " + str(diff) + " " + currencyinput)
     elif int(budgetinput) == result:
         diff = 0
         print("You have spent the same amount that you estimated")
     else:
         diff = result - int(budgetinput)
-        print("You have spent " + str(diff) + " " + currencyinput + " more than your estimate")
+        print("You have earned " + str(diff) + " " + currencyinput + " more than your budget estimate.")
 
 elif result < 0:
     print("You have incurred a loss of " + str(abs(result)) + " " + str(currencyinput))
