@@ -17,13 +17,13 @@ currencyinput = input()
 print("You have selected " + currencyinput + " as your currency")
 
 # Ask for budget amount
-print("Please enter the total budget amount")
+print("Please enter your total budget amount")
 budgetinput = input()
 print("The budget amount you selected for this budget is " +
       budgetinput + " " + currencyinput)
 
 income_total, expense_total = 0, 0
-entry = 0
+entry = {}
 i = 0
 # Take inputs of transactions from the user
 print("If you want to quit, press any letter")
@@ -38,17 +38,17 @@ else:
     print("Enter positive values for incomes and negative values for expenses.")
     for i in range(1, int(myinput) + 1):
         print("Input your transaction number " + str(i) + ":")
-        entry = input()
+        entry[i - 1] = input()
         print("Enter the narration for transaction number " + str(i) + ":")
         narrations[i - 1] = input()
-        if round(int(entry)) < 0:
-            expense_total = expense_total + round(int(entry))
+        if round(int(entry[i - 1])) < 0:
+            expense_total = expense_total + round(int(entry[i - 1]))
         else:
-            income_total = income_total + round(int(entry))
+            income_total = income_total + round(int(entry[i - 1]))
 
 print("\n")
 #Print all narrations
-#Start from here next and add dictionary keys to respective entries
+print("The narrations of all transactions are as follows:")
 for i in range(1, int(myinput)+1):
     print(narrations[i-1])
 diff = 0
@@ -74,3 +74,29 @@ elif result < 0:
     print("You have incurred a loss of " + str(abs(result)) + " " + str(currencyinput))
 else:
     pass
+
+# Command line based representation of all data
+
+print("_"*105)
+print("_"*105)
+
+print("--User details--")
+print("Name:" + nameinput)
+print("Name of the budget: " + projtitleinput)
+
+print("_"*105)
+print("Narration" + " " * 67 + "Incomes" + " " * 6 + "Expenses")
+print("_"*105)
+
+for i in range(1, int(myinput)+1):
+    if int(entry[i - 1]) > 0:
+        print(narrations[i-1])
+        print(" " * 75 + entry[i - 1])
+    else:
+        print(narrations[i-1])
+        print(" " * 90 + str(abs(int(entry[i - 1]))))
+
+abs_exp = abs(int(expense_total))
+print("_" * 105)
+print("Total" + " " * 70 + str(income_total) + " " * 10 + str(abs_exp))
+print("_"*105)
