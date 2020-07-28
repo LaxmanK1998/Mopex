@@ -107,11 +107,40 @@ def permutation(k, r):
     return factorial(k) * invert((factorial(k-r)))
 
 
-#Take operation inputs and call respective function
-keyword = input("Enter an operator: ")
-
 # Add calculator memory using lists
 memory = []
+total = 0
+running = True
 
-#while keyword != "exit":
-    #
+# While loop running to take input
+while running:
+    operation = input("Enter your operator. Enter 'help' for list of operations or enter 'quit' to exit: ")
+    if operation == "quit" or operation == "QUIT" or operation == "Quit":
+        print("Goodbye")
+        running = False
+    elif operation == "help" or operation == "HELP" or operation == "Help":
+        print("Here are the operations you can give to this calculator program.\n Left side shows operand name and right side shows the keyword")
+        print("Addition : +")
+        print("Subtraction: -")
+        print("Absolute value: ||")
+        print("Multiplication: *")
+        print("Division: /")
+        print("Modulo: %")
+        print("Sine: sin")
+        print("Cosine: cos")
+        print("Tangent: tan")
+        print("Square: ^2")
+        print("Cube: ^3")
+        print("Power: ^n")
+        print("Square root: ^(1/2)")
+        print("Cube root: ^(1/3)")
+        print("n'th root: ^(1/n)")
+        print("Natural log: loge")
+        print("Common log: log10")
+        print("Invert number: 1/x")
+        print("Factorial: !")
+        print("Permutation: nPr")
+        print("Combination: nCr")
+    else:
+        print("Invalid input. Please try again. Enter 'help' for a list of operation")
+
