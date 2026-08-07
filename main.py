@@ -5,7 +5,7 @@ Entry point script.
 import sys
 import datetime
 from database import DatabaseManager
-from models import Transaction, Budget
+from models import Transaction, Budget, Goal, JournalNote
 from gui.app import MopexApp
 
 
@@ -28,61 +28,104 @@ def seed_sample_data_if_empty(db: DatabaseManager):
         Transaction(
             budget_id=active_budget.id,
             title="Monthly Software Developer Salary",
-            amount=4200.00,
+            amount=75000.00,
             type="income",
             category="Salary & Wages",
             date=f"{curr_month}-01",
-            notes="Direct deposit pay"
+            notes="Direct deposit pay",
+            is_recurring=True,
+            recur_interval="monthly",
         ),
         Transaction(
             budget_id=active_budget.id,
             title="Freelance UI/UX Design Project",
-            amount=850.00,
+            amount=18500.00,
             type="income",
             category="Freelance / Business",
             date=f"{curr_month}-03",
-            notes="Client payment"
+            notes="Client payment",
         ),
         Transaction(
             budget_id=active_budget.id,
             title="Apartment Rent Payment",
-            amount=1200.00,
+            amount=15000.00,
             type="expense",
             category="Housing & Rent",
             date=f"{curr_month}-02",
-            notes="Monthly rent"
+            notes="Monthly rent",
+            is_recurring=True,
+            recur_interval="monthly",
         ),
         Transaction(
             budget_id=active_budget.id,
             title="Supermarket Grocery Shopping",
-            amount=245.50,
+            amount=3200.00,
             type="expense",
             category="Food & Dining",
             date=f"{curr_month}-05",
-            notes="Weekly groceries"
+            notes="Weekly groceries",
         ),
         Transaction(
             budget_id=active_budget.id,
-            title="Electricity & High-Speed Internet Bill",
-            amount=115.80,
+            title="Electricity & Internet Bill",
+            amount=2100.00,
             type="expense",
             category="Utilities & Bills",
             date=f"{curr_month}-06",
-            notes="Utility bills"
+            notes="Utility bills",
+            is_recurring=True,
+            recur_interval="monthly",
         ),
         Transaction(
             budget_id=active_budget.id,
-            title="Weekend Dinner & Movie with Friends",
-            amount=78.20,
+            title="Weekend Dinner & Movie",
+            amount=1450.00,
             type="expense",
             category="Entertainment",
             date=f"{curr_month}-07",
-            notes="Dining out"
+            notes="Dining out",
         ),
     ]
-
     for tx in sample_transactions:
         db.add_transaction(tx)
+
+    # Seed sample goals if none exist
+    existing_goals = db.get_goals(active_budget.id)
+    if not existing_goals:
+        sample_goals = [
+            Goal(
+                budget_id=active_budget.id,
+                title="Emergency Fund",
+                target_amount=100000.0,
+                saved_amount=35000.0,
+                deadline="2026-12-31",
+                description="6-month emergency fund",
+                icon="💰",
+            ),
+            Goal(
+                budget_id=active_budget.id,
+                title="New Laptop",
+                target_amount=80000.0,
+                saved_amount=25000.0,
+                deadline="2026-10-15",
+                description="MacBook Pro or equivalent",
+                icon="💻",
+            ),
+        ]
+        for g in sample_goals:
+            db.add_goal(g)
+
+    # Seed sample journal note if none exist
+    existing_notes = db.get_journal_notes(active_budget.id)
+    if not existing_notes:
+        db.add_journal_note(JournalNote(
+            budget_id=active_budget.id,
+            date=today.isoformat(),
+            title="First Month Financial Review",
+            content="Started tracking expenses today with Mopex. Income looks healthy this month. "
+                    "Need to cut back on dining out and entertainment spending.",
+            mood="good",
+        ))
 
 
 def main():
