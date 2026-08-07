@@ -1,0 +1,3 @@
+"""
+Mopex GUI package.
+"""
