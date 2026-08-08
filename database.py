@@ -1,5 +1,10 @@
 """
 Database manager for Mopex Expense Manager using SQLite.
+
+The database is intentionally stored in the user's Documents folder
+(~/Documents/Mopex/mopex.db) rather than inside the project directory
+so that sensitive financial data is kept separate from source code and
+is never accidentally committed to version control.
 """
 import os
 import sqlite3
@@ -9,7 +14,10 @@ from typing import List, Dict, Any, Optional
 from models import Budget, Transaction, Goal, JournalNote, DEFAULT_CURRENCIES
 
 
-DB_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "mopex.db")
+# Resolve the secure, user-private storage path: ~/Documents/Mopex/mopex.db
+_MOPEX_DATA_DIR = os.path.join(os.path.expanduser("~"), "Documents", "Mopex")
+os.makedirs(_MOPEX_DATA_DIR, exist_ok=True)  # Create the folder if it doesn't exist yet
+DB_FILE = os.path.join(_MOPEX_DATA_DIR, "mopex.db")
 
 
 class DatabaseManager:

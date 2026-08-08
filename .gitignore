@@ -5,8 +5,14 @@ __pycache__/
 *.pyd
 *.pyc
 
-# SQLite database (user data — do not commit)
-mopex.db
+# SQLite databases — sensitive user financial data, never commit these.
+# The app stores mopex.db in ~/Documents/Mopex/ (outside the project).
+*.db
+
+# PyInstaller build artifacts
+build/
+dist/
+*.spec.bak
 
 # Virtual environments
 .venv/
